@@ -23,18 +23,18 @@ public class CreateUserTest extends BaseTestUser {
 	@DisplayName("Безуспешное создание пользователя, который уже существует")
 	public void createExistentUserReturnsError() {
 		String errorMessage = "User already exists";
-		userSteps.registerUser(email, password, name);
-		ValidatableResponse response = userSteps.registerUser(email, password, name)
+		ValidatableResponse response = userSteps.registerUser(email, password, name);
+		token = response.extract().path("accessToken");
+		userSteps.registerUser(email, password, name)
 				.statusCode(HttpStatus.SC_FORBIDDEN)
 				.body("success", is(false)).and().body("message", is(errorMessage));
-		token = response.extract().path("accessToken");
 	}
 
 	@Test
 	@DisplayName("Безуспешное создание пользователя с отсутствующим обязательным параметром")
 	public void createNewUserWithoutRequiredParamReturnsError() {
 		String errorMessage = "Email, password and name are required fields";
-		userSteps.registerUser(email, password, "")
+		userSteps.registerUser(email, password, null)
 				.statusCode(HttpStatus.SC_FORBIDDEN)
 				.body("success", is(false)).and().body("message", is(errorMessage));
 	}
