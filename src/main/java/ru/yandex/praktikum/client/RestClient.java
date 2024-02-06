@@ -16,7 +16,7 @@ public class RestClient {
 	protected static RequestSpecification getRequestSpecification(String token) {
 		return given()
 				.contentType(ContentType.JSON)
-				.header("authorization", token)
+				.header("Authorization", token)
 				.baseUri(BASE_URI);
 	}
 }

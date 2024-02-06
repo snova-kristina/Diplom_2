@@ -12,7 +12,8 @@ public class EditUserDataTest extends BaseTestUser {
 	@Test
 	@DisplayName("Успешное изменение данных пользователя - изменение имени")
 	public void editUserNameReturnsOk() {
-		ValidatableResponse response = userSteps.registerUser(email, password, name);
+		userSteps.registerUser(email, password, name);
+		ValidatableResponse response = userSteps.loginUser(email, password);
 		token = response.extract().path("accessToken");
 		userSteps.editUserWithToken(email, password, newName, token)
 				.statusCode(HttpStatus.SC_OK)
@@ -22,7 +23,8 @@ public class EditUserDataTest extends BaseTestUser {
 	@Test
 	@DisplayName("Успешное изменение данных пользователя - изменение пароля")
 	public void editUserPasswordReturnsOk() {
-		ValidatableResponse response = userSteps.registerUser(email, password, name);
+		userSteps.registerUser(email, password, name);
+		ValidatableResponse response = userSteps.loginUser(email, password);
 		token = response.extract().path("accessToken");
 		userSteps.editUserWithToken(email, newPassword, name, token)
 				.statusCode(HttpStatus.SC_OK)
@@ -32,7 +34,8 @@ public class EditUserDataTest extends BaseTestUser {
 	@Test
 	@DisplayName("Успешное изменение данных пользователя - изменение почты")
 	public void editUserEmailReturnsOk() {
-		ValidatableResponse response = userSteps.registerUser(email, password, name);
+		userSteps.registerUser(email, password, name);
+		ValidatableResponse response = userSteps.loginUser(email, password);
 		token = response.extract().path("accessToken");
 		userSteps.editUserWithToken(newEmail, password, name, token)
 				.statusCode(HttpStatus.SC_OK)
