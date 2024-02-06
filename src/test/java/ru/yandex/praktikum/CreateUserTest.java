@@ -1,6 +1,7 @@
 package ru.yandex.praktikum;
 
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
@@ -12,10 +13,10 @@ public class CreateUserTest extends BaseTestUser {
 	@Test
 	@DisplayName("Успешное создание уникального пользователя")
 	public void createNewUserReturnsOk() {
-		userSteps.registerUser(email, password, name)
+		ValidatableResponse response = userSteps.registerUser(email, password, name)
 				.statusCode(HttpStatus.SC_OK)
 				.body("success", is(true)).and().body("accessToken", notNullValue());
-		token = userSteps.getToken(email, password);
+		token = response.extract().path("accessToken");
 	}
 
 	@Test
@@ -23,10 +24,10 @@ public class CreateUserTest extends BaseTestUser {
 	public void createExistentUserReturnsError() {
 		String errorMessage = "User already exists";
 		userSteps.registerUser(email, password, name);
-		userSteps.registerUser(email, password, name)
+		ValidatableResponse response = userSteps.registerUser(email, password, name)
 				.statusCode(HttpStatus.SC_FORBIDDEN)
 				.body("success", is(false)).and().body("message", is(errorMessage));
-		token = userSteps.getToken(email, password);
+		token = response.extract().path("accessToken");
 	}
 
 	@Test

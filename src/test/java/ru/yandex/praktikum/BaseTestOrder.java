@@ -1,6 +1,5 @@
 package ru.yandex.praktikum;
 
-import io.restassured.response.Response;
 import org.junit.After;
 import org.junit.Before;
 import ru.yandex.praktikum.client.OrderClient;
@@ -10,7 +9,8 @@ import ru.yandex.praktikum.step.UserSteps;
 
 import java.util.List;
 
-import static ru.yandex.praktikum.constants.OrderDataConstants.*;
+import static ru.yandex.praktikum.constants.OrderDataConstants.INGREDIENTS_HASH;
+import static ru.yandex.praktikum.constants.OrderDataConstants.INVALID_INGREDIENT_HASH;
 import static ru.yandex.praktikum.constants.UserDataConstants.*;
 
 public abstract class BaseTestOrder {
@@ -22,6 +22,7 @@ public abstract class BaseTestOrder {
 	String password = RANDOM_PASSWORD;
 	String name = RANDOM_NAME;
 	protected String token = null;
+
 	@Before
 	public void setUp() {
 		OrderClient orderClient = new OrderClient();

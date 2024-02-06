@@ -9,14 +9,13 @@ import static ru.yandex.praktikum.constants.UserDataConstants.*;
 
 public abstract class BaseTestUser {
 	protected UserSteps userSteps;
-	protected static String token = null;
 	static String email = RANDOM_EMAIL;
 	static String newEmail = RANDOM_EMAIL;
 	static String password = RANDOM_PASSWORD;
 	static String newPassword = RANDOM_PASSWORD;
 	static String name = RANDOM_NAME;
 	static String newName = RANDOM_NAME;
-
+	protected static String token = null;
 
 	@Before
 	public void setUp() {

@@ -7,7 +7,7 @@ import static io.restassured.RestAssured.given;
 import static ru.yandex.praktikum.config.Config.BASE_URI;
 
 public class RestClient {
-	protected static RequestSpecification getRequestSpecification(){
+	protected static RequestSpecification getRequestSpecification() {
 		return given()
 				.baseUri(BASE_URI)
 				.contentType(ContentType.JSON);
@@ -18,6 +18,5 @@ public class RestClient {
 				.contentType(ContentType.JSON)
 				.header("authorization", token)
 				.baseUri(BASE_URI);
-
 	}
 }

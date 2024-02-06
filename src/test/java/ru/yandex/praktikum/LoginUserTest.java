@@ -1,6 +1,7 @@
 package ru.yandex.praktikum;
 
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
@@ -13,10 +14,10 @@ public class LoginUserTest extends BaseTestUser{
 	@DisplayName("Успешный логин под существующим пользователем")
 	public void loginExistentUserReturnsOk(){
 		userSteps.registerUser(email,password,name);
-		userSteps.loginUser(email,password)
+		ValidatableResponse response = userSteps.loginUser(email,password)
 				.statusCode(HttpStatus.SC_OK)
 				.body("success", is(true)).and().body("accessToken", notNullValue());
-		token = userSteps.getToken(email, password);
+		token = response.extract().path("accessToken");
 	}
 
 	@Test

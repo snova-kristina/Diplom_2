@@ -1,6 +1,7 @@
 package ru.yandex.praktikum;
 
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.Test;
 
@@ -11,8 +12,8 @@ public class EditUserDataTest extends BaseTestUser {
 	@Test
 	@DisplayName("Успешное изменение данных пользователя - изменение имени")
 	public void editUserNameReturnsOk() {
-		userSteps.registerUser(email, password, name);
-		token = userSteps.getToken(email, password);
+		ValidatableResponse response = userSteps.registerUser(email, password, name);
+		token = response.extract().path("accessToken");
 		userSteps.editUserWithToken(email, password, newName, token)
 				.statusCode(HttpStatus.SC_OK)
 				.body("success", is(true));
@@ -21,8 +22,8 @@ public class EditUserDataTest extends BaseTestUser {
 	@Test
 	@DisplayName("Успешное изменение данных пользователя - изменение пароля")
 	public void editUserPasswordReturnsOk() {
-		userSteps.registerUser(email, password, name);
-		token = userSteps.getToken(email, password);
+		ValidatableResponse response = userSteps.registerUser(email, password, name);
+		token = response.extract().path("accessToken");
 		userSteps.editUserWithToken(email, newPassword, name, token)
 				.statusCode(HttpStatus.SC_OK)
 				.body("success", is(true));
@@ -31,8 +32,8 @@ public class EditUserDataTest extends BaseTestUser {
 	@Test
 	@DisplayName("Успешное изменение данных пользователя - изменение почты")
 	public void editUserEmailReturnsOk() {
-		userSteps.registerUser(email, password, name);
-		token = userSteps.getToken(email, password);
+		ValidatableResponse response = userSteps.registerUser(email, password, name);
+		token = response.extract().path("accessToken");
 		userSteps.editUserWithToken(newEmail, password, name, token)
 				.statusCode(HttpStatus.SC_OK)
 				.body("success", is(true));

@@ -34,7 +34,6 @@ public class UserClient extends RestClient {
 				.when()
 				.patch(EDIT_USER_PATH);
 	}
-
 	public static Response deleteUser(String token) {
 		return getRequestSpecification(token)
 				.when()

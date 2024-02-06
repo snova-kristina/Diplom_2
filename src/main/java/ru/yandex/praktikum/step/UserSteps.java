@@ -2,7 +2,6 @@ package ru.yandex.praktikum.step;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-import ru.yandex.praktikum.client.OrderClient;
 import ru.yandex.praktikum.client.UserClient;
 import ru.yandex.praktikum.dto.LoginUserRequest;
 import ru.yandex.praktikum.dto.RegisterUserRequest;
@@ -59,18 +58,6 @@ public class UserSteps {
 				.editUserInfoUnauthorized(editUserRequest)
 				.then()
 				.log().all();
-	}
-
-	@Step("Получение токена")
-	public String getToken(String email, String password) {
-		LoginUserRequest loginUserRequest = new LoginUserRequest();
-		loginUserRequest.setEmail(email);
-		loginUserRequest.setPassword(password);
-
-		return UserClient.loginUser(loginUserRequest)
-				.then()
-				.log().all()
-				.extract().path("accessToken");
 	}
 
 	@Step("Удаление пользователя")

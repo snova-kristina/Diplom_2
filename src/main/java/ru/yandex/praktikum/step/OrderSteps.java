@@ -17,7 +17,6 @@ public class OrderSteps {
 
 	@Step("Создание заказа с авторизацией")
 	public ValidatableResponse createOrderWithToken(List<String> ingredients, String token) {
-		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 		CreateOrderRequest createOrderRequest = new CreateOrderRequest();
 		createOrderRequest.setIngredients(ingredients);
 		return OrderClient.createOrderAuthorized(createOrderRequest, token).then().log().all();
